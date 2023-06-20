@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto Final</title>
+</head>
+<body>
+    <p id="banco"></p>
+    <p id="sucursal"></p>
+    <p id="titular"></p>
+    <p id="nCuenta"></p>
+    <p id="saldo"></p>
+    <p id="cbu"></p>
+    <p id="abierto"></p>
+
+    <script>
+        fetch('resumen.json')
+        .then(res => res.json())
+        .then((salida) => { 
+            datosJson = salida
+            let elementoBanco = document.getElementById('banco')
+            elementoBanco.textContent = datosJson.banco
+            let elementoSucursal = document.getElementById('sucursal')
+            elementoSucursal.textContent = datosJson.sucursal
+            let elementoTitular = document.getElementById('titular')
+            elementoTitular.textContent = datosJson.titular
+            let elementoNCuenta = document.getElementById('nCuenta')
+            elementoNCuenta.textContent = datosJson.nro_cuenta
+            let elementoSaldo = document.getElementById('saldo')
+            let saldoTexto = ''
+            datosJson.saldo.forEach((item) => {
+            saldoTexto += item.moneda + ': ' + item.monto + '\n';
+            });
+            elementoSaldo.textContent = saldoTexto;
+            let elementoCbu = document.getElementById('cbu')
+            elementoCbu.textContent = datosJson.cbu
+            let elementoAbierto = document.getElementById('abierto')
+            elementoAbierto.textContent = datosJson.abierto
+        })
+        .catch(function(error){
+            console.log(error)
+        })
+    </script>
+    
+</body>
+</html>
